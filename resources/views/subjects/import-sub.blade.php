@@ -52,6 +52,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <Link href="">sample file</Link>
             
                         <div class="rounded-btn-i green-btn-i mt-8 flex items-center justify-center">
                             <x-splade-submit :label="__('IMPORT FILE')" />
