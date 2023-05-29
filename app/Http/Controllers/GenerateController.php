@@ -375,19 +375,19 @@ class GenerateController extends Controller
 
                                     // checking if automation of room is on and what is allocation way
 
-                                    if ($autoRoom == 1) {
+                                    if ( ($autoRoom == 1 && $mode == "face-face") || ($autoRoom == 1 && $mode == "Hybrid" && $prefMode == "face-face") ) {
                                         
                                         // checking allocation way
-                                        if ($allocationWay == 1) {
-                                            // finding available room
-                                            $rooms = Room::where('roomSchool',$profSchool)
-                                            ->where('roomDepartment',$profDept)
-                                            ->orderBy("id")->get();
-                                        }elseif($allocationWay == 0){
-                                            // finding available room
-                                            $rooms = Room::where('roomSchool',$profSchool)
-                                            ->orderBy("id")->get();
-                                        }
+                                            if ($allocationWay == 1) {
+                                                // finding available room
+                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                ->where('roomDepartment',$profDept)
+                                                ->orderBy("id")->get();
+                                            }elseif($allocationWay == 0){
+                                                // finding available room
+                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                ->orderBy("id")->get();
+                                            }
                                         // end
 
                                         // loop6
@@ -426,58 +426,58 @@ class GenerateController extends Controller
                                             }else{
 
                                                 // saving schedules
-                                                Prof_sched::create([
-                                                    'profId' => $profId,
-                                                    'profName' => $profName,
-                                                    'profSchool' => $profSchool,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'sem' => $currentSem,
-                                                    'totalHours' => $superFinalFirstHalfSubUnits,
-                                                    'classroom' => $finalClassRoom,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Prof_sched::create([
+                                                        'profId' => $profId,
+                                                        'profName' => $profName,
+                                                        'profSchool' => $profSchool,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'sem' => $currentSem,
+                                                        'totalHours' => $superFinalFirstHalfSubUnits,
+                                                        'classroom' => $finalClassRoom,
+                                                        'sy' => $schYear,
+                                                    ]);
 
-                                                Room_sched::create([
-                                                    'profId' => $profId,
-                                                    'profName' => $profName,
-                                                    'profSchool' => $roomSchool,
-                                                    'roomSchool' => $roomSchool,
-                                                    'roomNumber' => $finalClassRoom,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'sem' => $currentSem,
-                                                    'totalHours' => $superFinalFirstHalfSubUnits,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Room_sched::create([
+                                                        'profId' => $profId,
+                                                        'profName' => $profName,
+                                                        'profSchool' => $roomSchool,
+                                                        'roomSchool' => $roomSchool,
+                                                        'roomNumber' => $finalClassRoom,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'sem' => $currentSem,
+                                                        'totalHours' => $superFinalFirstHalfSubUnits,
+                                                        'sy' => $schYear,
+                                                    ]);
 
-                                                Stud_sched::create([
-                                                    'profId' => $profId,
-                                                    'profName' => $profName,
-                                                    'schId' => $schId,
-                                                    'schName' => $roomSchool,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'sem' => $currentSem,
-                                                    'totalHours' => $superFinalFirstHalfSubUnits,
-                                                    'classroom' => $finalClassRoom,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Stud_sched::create([
+                                                        'profId' => $profId,
+                                                        'profName' => $profName,
+                                                        'schId' => $schId,
+                                                        'schName' => $roomSchool,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'sem' => $currentSem,
+                                                        'totalHours' => $superFinalFirstHalfSubUnits,
+                                                        'classroom' => $finalClassRoom,
+                                                        'sy' => $schYear,
+                                                    ]);
                                                 // end
 
                                                 // scheduling the other half of this subject
@@ -580,128 +580,196 @@ class GenerateController extends Controller
                                                         }
 
                                                         // making sure theres no conflict between each subject of this specific day,course,year,section
-                                                        $hasConflictWithOtherSub = Prof_sched::select("*")
-                                                        ->where("profSchool", $subSchool)
-                                                        // ->where("subCode", $subCode)
-                                                        ->where("studCourse", $subcourse)
-                                                        ->where("studYear", $subyear)
-                                                        ->where("studSection", $subsection)
-                                                        ->where("schedDay", $day)
-                                                        ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
-                                                            $query->where(function ($query1) use ($finalTimeStart) {
-                                                                        $query1->whereTime('startTime', '<=', $finalTimeStart)
-                                                                            ->whereTime('endTime', '>', $finalTimeStart);
-                                                                    })
-                                                                    ->orWhere(function ($query2) use ($finalTimeEnd) {
-                                                                        $query2->whereTime('startTime', '<', $finalTimeEnd)
-                                                                            ->whereTime('endTime', '>=', $finalTimeEnd);
-                                                                    })
-                                                                    ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
-                                                                        $query3->whereTime('startTime', '>', $finalTimeStart)
-                                                                            ->whereTime('endTime', '<', $finalTimeEnd);
-                                                                    });
-                                                        })
-                                                        ->exists();
+                                                            $hasConflictWithOtherSub = Prof_sched::select("*")
+                                                            ->where("profSchool", $subSchool)
+                                                            // ->where("subCode", $subCode)
+                                                            ->where("studCourse", $subcourse)
+                                                            ->where("studYear", $subyear)
+                                                            ->where("studSection", $subsection)
+                                                            ->where("schedDay", $day)
+                                                            ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
+                                                                $query->where(function ($query1) use ($finalTimeStart) {
+                                                                            $query1->whereTime('startTime', '<=', $finalTimeStart)
+                                                                                ->whereTime('endTime', '>', $finalTimeStart);
+                                                                        })
+                                                                        ->orWhere(function ($query2) use ($finalTimeEnd) {
+                                                                            $query2->whereTime('startTime', '<', $finalTimeEnd)
+                                                                                ->whereTime('endTime', '>=', $finalTimeEnd);
+                                                                        })
+                                                                        ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
+                                                                            $query3->whereTime('startTime', '>', $finalTimeStart)
+                                                                                ->whereTime('endTime', '<', $finalTimeEnd);
+                                                                        });
+                                                            })
+                                                            ->exists();
 
-                                                        if($hasConflictWithOtherSub){
-                                                            continue;
-                                                        }
+                                                            if($hasConflictWithOtherSub){
+                                                                continue;
+                                                            }
                                                         // end
 
                                                         // making sure theres no conflict between each subject of this specific day and professor
-                                                        $hasConflictWithOtherProfSched = Prof_sched::select("*")
-                                                        ->where("profId", $profId)
-                                                        ->where("profSchool", $subSchool)
-                                                        // ->where("subCode", $subCode)
-                                                        ->where("schedDay", $day)
-                                                        ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
-                                                            $query->where(function ($query1) use ($finalTimeStart) {
-                                                                        $query1->whereTime('startTime', '<=', $finalTimeStart)
-                                                                            ->whereTime('endTime', '>', $finalTimeStart);
-                                                                    })
-                                                                    ->orWhere(function ($query2) use ($finalTimeEnd) {
-                                                                        $query2->whereTime('startTime', '<', $finalTimeEnd)
-                                                                            ->whereTime('endTime', '>=', $finalTimeEnd);
-                                                                    })
-                                                                    ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
-                                                                        $query3->whereTime('startTime', '>', $finalTimeStart)
-                                                                            ->whereTime('endTime', '<', $finalTimeEnd);
-                                                                    });
-                                                        })
-                                                        ->exists();
+                                                            $hasConflictWithOtherProfSched = Prof_sched::select("*")
+                                                            ->where("profId", $profId)
+                                                            ->where("profSchool", $subSchool)
+                                                            // ->where("subCode", $subCode)
+                                                            ->where("schedDay", $day)
+                                                            ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
+                                                                $query->where(function ($query1) use ($finalTimeStart) {
+                                                                            $query1->whereTime('startTime', '<=', $finalTimeStart)
+                                                                                ->whereTime('endTime', '>', $finalTimeStart);
+                                                                        })
+                                                                        ->orWhere(function ($query2) use ($finalTimeEnd) {
+                                                                            $query2->whereTime('startTime', '<', $finalTimeEnd)
+                                                                                ->whereTime('endTime', '>=', $finalTimeEnd);
+                                                                        })
+                                                                        ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
+                                                                            $query3->whereTime('startTime', '>', $finalTimeStart)
+                                                                                ->whereTime('endTime', '<', $finalTimeEnd);
+                                                                        });
+                                                            })
+                                                            ->exists();
 
-                                                        if($hasConflictWithOtherProfSched){
-                                                            continue;
-                                                        }
+                                                            if($hasConflictWithOtherProfSched){
+                                                                continue;
+                                                            }
                                                         // end
 
                                                         // ///////////////////////////////////////////////////////////////////////////
                                                         // making sure that this professor has proper lunch time either 12-1 or 1-2
 
-                                                        $twelve = strtotime("12:00:00");
-                                                        $finalTwelve = date("H:i:s",$twelve);
+                                                            $twelve = strtotime("12:00:00");
+                                                            $finalTwelve = date("H:i:s",$twelve);
 
-                                                        $one = strtotime("13:00:00");
-                                                        $finalOne = date("H:i:s",$one);
+                                                            $one = strtotime("13:00:00");
+                                                            $finalOne = date("H:i:s",$one);
 
-                                                        if( ($finalTimeStart <= $finalTwelve) && ($finalTimeEnd > $finalOne) ){
-                                                            continue;
-                                                        }
+                                                            if( ($finalTimeStart <= $finalTwelve) && ($finalTimeEnd > $finalOne) ){
+                                                                continue;
+                                                            }
 
-                                                        // if($finalTimeStart >= $prefTimeEnd){
-                                                        //     continue;
-                                                        // }
+                                                            // if($finalTimeStart >= $prefTimeEnd){
+                                                            //     continue;
+                                                            // }
 
-                                                        $hasSchedEndsOnTwelve = Prof_sched::select("*")
-                                                        ->where("profId", $profId)
-                                                        ->where("profSchool", $subSchool)
-                                                        // ->where("subCode", $subCode)
-                                                        ->where("schedDay", $day)
-                                                        ->whereTime('endTime', '=', $finalTwelve)
-                                                        ->exists();
+                                                            $hasSchedEndsOnTwelve = Prof_sched::select("*")
+                                                            ->where("profId", $profId)
+                                                            ->where("profSchool", $subSchool)
+                                                            // ->where("subCode", $subCode)
+                                                            ->where("schedDay", $day)
+                                                            ->whereTime('endTime', '=', $finalTwelve)
+                                                            ->exists();
 
-                                                        if( ($hasSchedEndsOnTwelve) && ($finalTimeStart == $finalTwelve) ){
-                                                            continue;
-                                                        }
+                                                            if( ($hasSchedEndsOnTwelve) && ($finalTimeStart == $finalTwelve) ){
+                                                                continue;
+                                                            }
 
-                                                        $hasSchedEndsOnOne = Prof_sched::select("*")
-                                                        ->where("profId", $profId)
-                                                        ->where("profSchool", $subSchool)
-                                                        // ->where("subCode", $subCode)
-                                                        ->where("schedDay", $day)
-                                                        ->whereTime('endTime', '=', $finalOne)
-                                                        ->exists();
+                                                            $hasSchedEndsOnOne = Prof_sched::select("*")
+                                                            ->where("profId", $profId)
+                                                            ->where("profSchool", $subSchool)
+                                                            // ->where("subCode", $subCode)
+                                                            ->where("schedDay", $day)
+                                                            ->whereTime('endTime', '=', $finalOne)
+                                                            ->exists();
 
-                                                        if( ($hasSchedEndsOnOne) && ($finalTimeStart == $finalOne) ){
-                                                            continue;
-                                                        }
+                                                            if( ($hasSchedEndsOnOne) && ($finalTimeStart == $finalOne) ){
+                                                                continue;
+                                                            }
 
-                                                        $hasSchedStartsOnOne = Prof_sched::select("*")
-                                                        ->where("profId", $profId)
-                                                        ->where("profSchool", $subSchool)
-                                                        // ->where("subCode", $subCode)
-                                                        ->where("schedDay", $day)
-                                                        ->whereTime('startTime', '=', $finalOne)
-                                                        ->exists();
+                                                            $hasSchedStartsOnOne = Prof_sched::select("*")
+                                                            ->where("profId", $profId)
+                                                            ->where("profSchool", $subSchool)
+                                                            // ->where("subCode", $subCode)
+                                                            ->where("schedDay", $day)
+                                                            ->whereTime('startTime', '=', $finalOne)
+                                                            ->exists();
 
-                                                        if( ($hasSchedStartsOnOne) && ($finalTimeEnd == $finalOne) ){
-                                                            continue;
-                                                        }
+                                                            if( ($hasSchedStartsOnOne) && ($finalTimeEnd == $finalOne) ){
+                                                                continue;
+                                                            }
 
                                                         // end
                                                         // ///////////////////////////////////////////////////////////////////////////
 
+                                                        // checking if this 2nd part of schedule is hybrid and has preferred mode of online for this day
+                                                            if( ($mode == "Hybrid") && ($prefMode == "Online") ){
+
+                                                                $finalClassRoom = "online";
+                                                                $roomSchool = $profSchool;
+
+                                                                // saving schedules
+                                                                    Prof_sched::create([
+                                                                        'profId' => $profId,
+                                                                        'profSchool' => $profSchool,
+                                                                        'subCode' => $subCode,
+                                                                        'schedDay' => $day,
+                                                                        'startTime' => $finalTimeStart,
+                                                                        'endTime' => $finalTimeEnd,
+                                                                        'studCourse' => $subcourse,
+                                                                        'studYear' => $subyear,
+                                                                        'studSection' => $subsection,
+                                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                                        'classroom' => $finalClassRoom,
+                                                                        'profName' => $profName,
+                                                                        'sem' => $currentSem,
+                                                                        'sy' => $schYear,
+                                                                    ]);
+
+                                                                    Room_sched::create([
+                                                                        'profId' => $profId,
+                                                                        'profSchool' => $roomSchool,
+                                                                        'roomSchool' => $roomSchool,
+                                                                        'roomNumber' => $finalClassRoom,
+                                                                        'subCode' => $subCode,
+                                                                        'schedDay' => $day,
+                                                                        'startTime' => $finalTimeStart,
+                                                                        'endTime' => $finalTimeEnd,
+                                                                        'studCourse' => $subcourse,
+                                                                        'studYear' => $subyear,
+                                                                        'studSection' => $subsection,
+                                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                                        'profName' => $profName,
+                                                                        'sem' => $currentSem,
+                                                                        'sy' => $schYear,
+                                                                    ]);
+
+                                                                    Stud_sched::create([
+                                                                        'profId' => $profId,
+                                                                        'schId' => $schId,
+                                                                        'schName' => $roomSchool,
+                                                                        'subCode' => $subCode,
+                                                                        'schedDay' => $day,
+                                                                        'startTime' => $finalTimeStart,
+                                                                        'endTime' => $finalTimeEnd,
+                                                                        'studCourse' => $subcourse,
+                                                                        'studYear' => $subyear,
+                                                                        'studSection' => $subsection,
+                                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                                        'classroom' => $finalClassRoom,
+                                                                        'profName' => $profName,
+                                                                        'sem' => $currentSem,
+                                                                        'sy' => $schYear,
+                                                                    ]);
+                                                                // end
+
+                                                                // breaking loops to go back to 2nd loop the subjects loop
+                                                                break 6;
+                                                                // end
+
+                                                            }
+                                                        // end of checking if this 2nd part of schedule is hybrid and has preferred mode of online for this day
+
                                                         // checking allocation way
-                                                        if ($allocationWay == 1) {
-                                                            // finding available room
-                                                            $rooms = Room::where('roomSchool',$profSchool)
-                                                            ->where('roomDepartment',$profDept)
-                                                            ->orderBy("id")->get();
-                                                        }elseif($allocationWay == 0){
-                                                            // finding available room
-                                                            $rooms = Room::where('roomSchool',$profSchool)
-                                                            ->orderBy("id")->get();
-                                                        }
+                                                            if ($allocationWay == 1) {
+                                                                // finding available room
+                                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                                ->where('roomDepartment',$profDept)
+                                                                ->orderBy("id")->get();
+                                                            }elseif($allocationWay == 0){
+                                                                // finding available room
+                                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                                ->orderBy("id")->get();
+                                                            }
                                                         // end
 
                                                         // finding available room
@@ -736,58 +804,58 @@ class GenerateController extends Controller
                                                             }else{
 
                                                                 // saving schedules
-                                                                Prof_sched::create([
-                                                                    'profId' => $profId,
-                                                                    'profSchool' => $profSchool,
-                                                                    'subCode' => $subCode,
-                                                                    'schedDay' => $day,
-                                                                    'startTime' => $finalTimeStart,
-                                                                    'endTime' => $finalTimeEnd,
-                                                                    'studCourse' => $subcourse,
-                                                                    'studYear' => $subyear,
-                                                                    'studSection' => $subsection,
-                                                                    'totalHours' => $superFinalHalfSubUnits,
-                                                                    'classroom' => $finalClassRoom,
-                                                                    'profName' => $profName,
-                                                                    'sem' => $currentSem,
-                                                                    'sy' => $schYear,
-                                                                ]);
+                                                                    Prof_sched::create([
+                                                                        'profId' => $profId,
+                                                                        'profSchool' => $profSchool,
+                                                                        'subCode' => $subCode,
+                                                                        'schedDay' => $day,
+                                                                        'startTime' => $finalTimeStart,
+                                                                        'endTime' => $finalTimeEnd,
+                                                                        'studCourse' => $subcourse,
+                                                                        'studYear' => $subyear,
+                                                                        'studSection' => $subsection,
+                                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                                        'classroom' => $finalClassRoom,
+                                                                        'profName' => $profName,
+                                                                        'sem' => $currentSem,
+                                                                        'sy' => $schYear,
+                                                                    ]);
 
-                                                                Room_sched::create([
-                                                                    'profId' => $profId,
-                                                                    'profSchool' => $roomSchool,
-                                                                    'roomSchool' => $roomSchool,
-                                                                    'roomNumber' => $finalClassRoom,
-                                                                    'subCode' => $subCode,
-                                                                    'schedDay' => $day,
-                                                                    'startTime' => $finalTimeStart,
-                                                                    'endTime' => $finalTimeEnd,
-                                                                    'studCourse' => $subcourse,
-                                                                    'studYear' => $subyear,
-                                                                    'studSection' => $subsection,
-                                                                    'totalHours' => $superFinalHalfSubUnits,
-                                                                    'profName' => $profName,
-                                                                    'sem' => $currentSem,
-                                                                    'sy' => $schYear,
-                                                                ]);
+                                                                    Room_sched::create([
+                                                                        'profId' => $profId,
+                                                                        'profSchool' => $roomSchool,
+                                                                        'roomSchool' => $roomSchool,
+                                                                        'roomNumber' => $finalClassRoom,
+                                                                        'subCode' => $subCode,
+                                                                        'schedDay' => $day,
+                                                                        'startTime' => $finalTimeStart,
+                                                                        'endTime' => $finalTimeEnd,
+                                                                        'studCourse' => $subcourse,
+                                                                        'studYear' => $subyear,
+                                                                        'studSection' => $subsection,
+                                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                                        'profName' => $profName,
+                                                                        'sem' => $currentSem,
+                                                                        'sy' => $schYear,
+                                                                    ]);
 
-                                                                Stud_sched::create([
-                                                                    'profId' => $profId,
-                                                                    'schId' => $schId,
-                                                                    'schName' => $roomSchool,
-                                                                    'subCode' => $subCode,
-                                                                    'schedDay' => $day,
-                                                                    'startTime' => $finalTimeStart,
-                                                                    'endTime' => $finalTimeEnd,
-                                                                    'studCourse' => $subcourse,
-                                                                    'studYear' => $subyear,
-                                                                    'studSection' => $subsection,
-                                                                    'totalHours' => $superFinalHalfSubUnits,
-                                                                    'classroom' => $finalClassRoom,
-                                                                    'profName' => $profName,
-                                                                    'sem' => $currentSem,
-                                                                    'sy' => $schYear,
-                                                                ]);
+                                                                    Stud_sched::create([
+                                                                        'profId' => $profId,
+                                                                        'schId' => $schId,
+                                                                        'schName' => $roomSchool,
+                                                                        'subCode' => $subCode,
+                                                                        'schedDay' => $day,
+                                                                        'startTime' => $finalTimeStart,
+                                                                        'endTime' => $finalTimeEnd,
+                                                                        'studCourse' => $subcourse,
+                                                                        'studYear' => $subyear,
+                                                                        'studSection' => $subsection,
+                                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                                        'classroom' => $finalClassRoom,
+                                                                        'profName' => $profName,
+                                                                        'sem' => $currentSem,
+                                                                        'sy' => $schYear,
+                                                                    ]);
                                                                 // end
 
                                                                 // breaking loops to go back to 2nd loop the subjects loop
@@ -818,58 +886,58 @@ class GenerateController extends Controller
                                         $roomSchool = $profSchool;
 
                                         // saving schedules
-                                        Prof_sched::create([
-                                            'profId' => $profId,
-                                            'profName' => $profName,
-                                            'profSchool' => $profSchool,
-                                            'subCode' => $subCode,
-                                            'schedDay' => $day,
-                                            'startTime' => $finalTimeStart,
-                                            'endTime' => $finalTimeEnd,
-                                            'studCourse' => $subcourse,
-                                            'studYear' => $subyear,
-                                            'studSection' => $subsection,
-                                            'sem' => $currentSem,
-                                            'totalHours' => $superFinalFirstHalfSubUnits,
-                                            'classroom' => $finalClassRoom,
-                                            'sy' => $schYear,
-                                        ]);
+                                            Prof_sched::create([
+                                                'profId' => $profId,
+                                                'profName' => $profName,
+                                                'profSchool' => $profSchool,
+                                                'subCode' => $subCode,
+                                                'schedDay' => $day,
+                                                'startTime' => $finalTimeStart,
+                                                'endTime' => $finalTimeEnd,
+                                                'studCourse' => $subcourse,
+                                                'studYear' => $subyear,
+                                                'studSection' => $subsection,
+                                                'sem' => $currentSem,
+                                                'totalHours' => $superFinalFirstHalfSubUnits,
+                                                'classroom' => $finalClassRoom,
+                                                'sy' => $schYear,
+                                            ]);
 
-                                        Room_sched::create([
-                                            'profId' => $profId,
-                                            'profName' => $profName,
-                                            'profSchool' => $roomSchool,
-                                            'roomSchool' => $roomSchool,
-                                            'roomNumber' => $finalClassRoom,
-                                            'subCode' => $subCode,
-                                            'schedDay' => $day,
-                                            'startTime' => $finalTimeStart,
-                                            'endTime' => $finalTimeEnd,
-                                            'studCourse' => $subcourse,
-                                            'studYear' => $subyear,
-                                            'studSection' => $subsection,
-                                            'sem' => $currentSem,
-                                            'totalHours' => $superFinalFirstHalfSubUnits,
-                                            'sy' => $schYear,
-                                        ]);
+                                            Room_sched::create([
+                                                'profId' => $profId,
+                                                'profName' => $profName,
+                                                'profSchool' => $roomSchool,
+                                                'roomSchool' => $roomSchool,
+                                                'roomNumber' => $finalClassRoom,
+                                                'subCode' => $subCode,
+                                                'schedDay' => $day,
+                                                'startTime' => $finalTimeStart,
+                                                'endTime' => $finalTimeEnd,
+                                                'studCourse' => $subcourse,
+                                                'studYear' => $subyear,
+                                                'studSection' => $subsection,
+                                                'sem' => $currentSem,
+                                                'totalHours' => $superFinalFirstHalfSubUnits,
+                                                'sy' => $schYear,
+                                            ]);
 
-                                        Stud_sched::create([
-                                            'profId' => $profId,
-                                            'profName' => $profName,
-                                            'schId' => $schId,
-                                            'schName' => $roomSchool,
-                                            'subCode' => $subCode,
-                                            'schedDay' => $day,
-                                            'startTime' => $finalTimeStart,
-                                            'endTime' => $finalTimeEnd,
-                                            'studCourse' => $subcourse,
-                                            'studYear' => $subyear,
-                                            'studSection' => $subsection,
-                                            'sem' => $currentSem,
-                                            'totalHours' => $superFinalFirstHalfSubUnits,
-                                            'classroom' => $finalClassRoom,
-                                            'sy' => $schYear,
-                                        ]);
+                                            Stud_sched::create([
+                                                'profId' => $profId,
+                                                'profName' => $profName,
+                                                'schId' => $schId,
+                                                'schName' => $roomSchool,
+                                                'subCode' => $subCode,
+                                                'schedDay' => $day,
+                                                'startTime' => $finalTimeStart,
+                                                'endTime' => $finalTimeEnd,
+                                                'studCourse' => $subcourse,
+                                                'studYear' => $subyear,
+                                                'studSection' => $subsection,
+                                                'sem' => $currentSem,
+                                                'totalHours' => $superFinalFirstHalfSubUnits,
+                                                'classroom' => $finalClassRoom,
+                                                'sy' => $schYear,
+                                            ]);
                                         // end
 
                                         // loop6
@@ -969,170 +1037,286 @@ class GenerateController extends Controller
                                                 }
 
                                                 // making sure theres no conflict between each subject of this specific day,course,year,section
-                                                $hasConflictWithOtherSub = Prof_sched::select("*")
-                                                ->where("profSchool", $subSchool)
-                                                // ->where("subCode", $subCode)
-                                                ->where("studCourse", $subcourse)
-                                                ->where("studYear", $subyear)
-                                                ->where("studSection", $subsection)
-                                                ->where("schedDay", $day)
-                                                ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
-                                                    $query->where(function ($query1) use ($finalTimeStart) {
-                                                                $query1->whereTime('startTime', '<=', $finalTimeStart)
-                                                                    ->whereTime('endTime', '>', $finalTimeStart);
-                                                            })
-                                                            ->orWhere(function ($query2) use ($finalTimeEnd) {
-                                                                $query2->whereTime('startTime', '<', $finalTimeEnd)
-                                                                    ->whereTime('endTime', '>=', $finalTimeEnd);
-                                                            })
-                                                            ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
-                                                                $query3->whereTime('startTime', '>', $finalTimeStart)
-                                                                    ->whereTime('endTime', '<', $finalTimeEnd);
-                                                            });
-                                                })
-                                                ->exists();
+                                                    $hasConflictWithOtherSub = Prof_sched::select("*")
+                                                    ->where("profSchool", $subSchool)
+                                                    // ->where("subCode", $subCode)
+                                                    ->where("studCourse", $subcourse)
+                                                    ->where("studYear", $subyear)
+                                                    ->where("studSection", $subsection)
+                                                    ->where("schedDay", $day)
+                                                    ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
+                                                        $query->where(function ($query1) use ($finalTimeStart) {
+                                                                    $query1->whereTime('startTime', '<=', $finalTimeStart)
+                                                                        ->whereTime('endTime', '>', $finalTimeStart);
+                                                                })
+                                                                ->orWhere(function ($query2) use ($finalTimeEnd) {
+                                                                    $query2->whereTime('startTime', '<', $finalTimeEnd)
+                                                                        ->whereTime('endTime', '>=', $finalTimeEnd);
+                                                                })
+                                                                ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
+                                                                    $query3->whereTime('startTime', '>', $finalTimeStart)
+                                                                        ->whereTime('endTime', '<', $finalTimeEnd);
+                                                                });
+                                                    })
+                                                    ->exists();
 
-                                                if($hasConflictWithOtherSub){
-                                                    continue;
-                                                }
+                                                    if($hasConflictWithOtherSub){
+                                                        continue;
+                                                    }
                                                 // end
 
                                                 // making sure theres no conflict between each subject of this specific day and professor
-                                                $hasConflictWithOtherProfSched = Prof_sched::select("*")
-                                                ->where("profId", $profId)
-                                                ->where("profSchool", $subSchool)
-                                                // ->where("subCode", $subCode)
-                                                ->where("schedDay", $day)
-                                                ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
-                                                    $query->where(function ($query1) use ($finalTimeStart) {
-                                                                $query1->whereTime('startTime', '<=', $finalTimeStart)
-                                                                    ->whereTime('endTime', '>', $finalTimeStart);
-                                                            })
-                                                            ->orWhere(function ($query2) use ($finalTimeEnd) {
-                                                                $query2->whereTime('startTime', '<', $finalTimeEnd)
-                                                                    ->whereTime('endTime', '>=', $finalTimeEnd);
-                                                            })
-                                                            ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
-                                                                $query3->whereTime('startTime', '>', $finalTimeStart)
-                                                                    ->whereTime('endTime', '<', $finalTimeEnd);
-                                                            });
-                                                })
-                                                ->exists();
+                                                    $hasConflictWithOtherProfSched = Prof_sched::select("*")
+                                                    ->where("profId", $profId)
+                                                    ->where("profSchool", $subSchool)
+                                                    // ->where("subCode", $subCode)
+                                                    ->where("schedDay", $day)
+                                                    ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
+                                                        $query->where(function ($query1) use ($finalTimeStart) {
+                                                                    $query1->whereTime('startTime', '<=', $finalTimeStart)
+                                                                        ->whereTime('endTime', '>', $finalTimeStart);
+                                                                })
+                                                                ->orWhere(function ($query2) use ($finalTimeEnd) {
+                                                                    $query2->whereTime('startTime', '<', $finalTimeEnd)
+                                                                        ->whereTime('endTime', '>=', $finalTimeEnd);
+                                                                })
+                                                                ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
+                                                                    $query3->whereTime('startTime', '>', $finalTimeStart)
+                                                                        ->whereTime('endTime', '<', $finalTimeEnd);
+                                                                });
+                                                    })
+                                                    ->exists();
 
-                                                if($hasConflictWithOtherProfSched){
-                                                    continue;
-                                                }
+                                                    if($hasConflictWithOtherProfSched){
+                                                        continue;
+                                                    }
                                                 // end
 
                                                 // ///////////////////////////////////////////////////////////////////////////
                                                 // making sure that this professor has proper lunch time either 12-1 or 1-2
 
-                                                $twelve = strtotime("12:00:00");
-                                                $finalTwelve = date("H:i:s",$twelve);
+                                                    $twelve = strtotime("12:00:00");
+                                                    $finalTwelve = date("H:i:s",$twelve);
 
-                                                $one = strtotime("13:00:00");
-                                                $finalOne = date("H:i:s",$one);
+                                                    $one = strtotime("13:00:00");
+                                                    $finalOne = date("H:i:s",$one);
 
-                                                if( ($finalTimeStart <= $finalTwelve) && ($finalTimeEnd > $finalOne) ){
-                                                    continue;
-                                                }
+                                                    if( ($finalTimeStart <= $finalTwelve) && ($finalTimeEnd > $finalOne) ){
+                                                        continue;
+                                                    }
 
-                                                // if($finalTimeStart >= $prefTimeEnd){
-                                                //     continue;
-                                                // }
+                                                    // if($finalTimeStart >= $prefTimeEnd){
+                                                    //     continue;
+                                                    // }
 
-                                                $hasSchedEndsOnTwelve = Prof_sched::select("*")
-                                                ->where("profId", $profId)
-                                                ->where("profSchool", $subSchool)
-                                                // ->where("subCode", $subCode)
-                                                ->where("schedDay", $day)
-                                                ->whereTime('endTime', '=', $finalTwelve)
-                                                ->exists();
+                                                    $hasSchedEndsOnTwelve = Prof_sched::select("*")
+                                                    ->where("profId", $profId)
+                                                    ->where("profSchool", $subSchool)
+                                                    // ->where("subCode", $subCode)
+                                                    ->where("schedDay", $day)
+                                                    ->whereTime('endTime', '=', $finalTwelve)
+                                                    ->exists();
 
-                                                if( ($hasSchedEndsOnTwelve) && ($finalTimeStart == $finalTwelve) ){
-                                                    continue;
-                                                }
+                                                    if( ($hasSchedEndsOnTwelve) && ($finalTimeStart == $finalTwelve) ){
+                                                        continue;
+                                                    }
 
-                                                $hasSchedEndsOnOne = Prof_sched::select("*")
-                                                ->where("profId", $profId)
-                                                ->where("profSchool", $subSchool)
-                                                // ->where("subCode", $subCode)
-                                                ->where("schedDay", $day)
-                                                ->whereTime('endTime', '=', $finalOne)
-                                                ->exists();
+                                                    $hasSchedEndsOnOne = Prof_sched::select("*")
+                                                    ->where("profId", $profId)
+                                                    ->where("profSchool", $subSchool)
+                                                    // ->where("subCode", $subCode)
+                                                    ->where("schedDay", $day)
+                                                    ->whereTime('endTime', '=', $finalOne)
+                                                    ->exists();
 
-                                                if( ($hasSchedEndsOnOne) && ($finalTimeStart == $finalOne) ){
-                                                    continue;
-                                                }
+                                                    if( ($hasSchedEndsOnOne) && ($finalTimeStart == $finalOne) ){
+                                                        continue;
+                                                    }
 
-                                                $hasSchedStartsOnOne = Prof_sched::select("*")
-                                                ->where("profId", $profId)
-                                                ->where("profSchool", $subSchool)
-                                                // ->where("subCode", $subCode)
-                                                ->where("schedDay", $day)
-                                                ->whereTime('startTime', '=', $finalOne)
-                                                ->exists();
+                                                    $hasSchedStartsOnOne = Prof_sched::select("*")
+                                                    ->where("profId", $profId)
+                                                    ->where("profSchool", $subSchool)
+                                                    // ->where("subCode", $subCode)
+                                                    ->where("schedDay", $day)
+                                                    ->whereTime('startTime', '=', $finalOne)
+                                                    ->exists();
 
-                                                if( ($hasSchedStartsOnOne) && ($finalTimeEnd == $finalOne) ){
-                                                    continue;
-                                                }
+                                                    if( ($hasSchedStartsOnOne) && ($finalTimeEnd == $finalOne) ){
+                                                        continue;
+                                                    }
 
                                                 // end
                                                 // ///////////////////////////////////////////////////////////////////////////
 
+                                                // checking if this 2nd part of schedule is hybrid and has preferred mode of face-face for this day
+
+                                                    if( ($mode == "Hybrid") && ($prefMode == "face-face") ){
+
+                                                        // checking allocation way
+                                                            if ($allocationWay == 1) {
+                                                                // finding available room
+                                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                                ->where('roomDepartment',$profDept)
+                                                                ->orderBy("id")->get();
+                                                            }elseif($allocationWay == 0){
+                                                                // finding available room
+                                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                                ->orderBy("id")->get();
+                                                            }
+                                                        // end
+
+                                                        // finding available room
+                                                            // loop8
+                                                            foreach($rooms as $room){
+
+                                                                $finalClassRoom = $room->roomNumber;
+                                                                $roomSchool = $room->roomSchool;
+
+                                                                $classroomTaken = Room_sched::where('profSchool', $profSchool)
+                                                                            ->where('roomSchool', $roomSchool)
+                                                                            ->where('roomNumber', $finalClassRoom)
+                                                                            ->where('schedDay', $day)
+                                                                            ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
+                                                                                $query->where(function ($query1) use ($finalTimeStart) {
+                                                                                            $query1->whereTime('startTime', '<=', $finalTimeStart)
+                                                                                                ->whereTime('endTime', '>', $finalTimeStart);
+                                                                                        })
+                                                                                        ->orWhere(function ($query2) use ($finalTimeEnd) {
+                                                                                            $query2->whereTime('startTime', '<', $finalTimeEnd)
+                                                                                                ->whereTime('endTime', '>=', $finalTimeEnd);
+                                                                                        })
+                                                                                        ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
+                                                                                            $query3->whereTime('startTime', '>', $finalTimeStart)
+                                                                                                ->whereTime('endTime', '<', $finalTimeEnd);
+                                                                                        });
+                                                                            })
+                                                                            ->exists();
+
+                                                                if($classroomTaken){
+                                                                    continue;
+                                                                }else{
+
+                                                                    // saving schedules
+                                                                        Prof_sched::create([
+                                                                            'profId' => $profId,
+                                                                            'profSchool' => $profSchool,
+                                                                            'subCode' => $subCode,
+                                                                            'schedDay' => $day,
+                                                                            'startTime' => $finalTimeStart,
+                                                                            'endTime' => $finalTimeEnd,
+                                                                            'studCourse' => $subcourse,
+                                                                            'studYear' => $subyear,
+                                                                            'studSection' => $subsection,
+                                                                            'totalHours' => $superFinalHalfSubUnits,
+                                                                            'classroom' => $finalClassRoom,
+                                                                            'profName' => $profName,
+                                                                            'sem' => $currentSem,
+                                                                            'sy' => $schYear,
+                                                                        ]);
+
+                                                                        Room_sched::create([
+                                                                            'profId' => $profId,
+                                                                            'profSchool' => $roomSchool,
+                                                                            'roomSchool' => $roomSchool,
+                                                                            'roomNumber' => $finalClassRoom,
+                                                                            'subCode' => $subCode,
+                                                                            'schedDay' => $day,
+                                                                            'startTime' => $finalTimeStart,
+                                                                            'endTime' => $finalTimeEnd,
+                                                                            'studCourse' => $subcourse,
+                                                                            'studYear' => $subyear,
+                                                                            'studSection' => $subsection,
+                                                                            'totalHours' => $superFinalHalfSubUnits,
+                                                                            'profName' => $profName,
+                                                                            'sem' => $currentSem,
+                                                                            'sy' => $schYear,
+                                                                        ]);
+
+                                                                        Stud_sched::create([
+                                                                            'profId' => $profId,
+                                                                            'schId' => $schId,
+                                                                            'schName' => $roomSchool,
+                                                                            'subCode' => $subCode,
+                                                                            'schedDay' => $day,
+                                                                            'startTime' => $finalTimeStart,
+                                                                            'endTime' => $finalTimeEnd,
+                                                                            'studCourse' => $subcourse,
+                                                                            'studYear' => $subyear,
+                                                                            'studSection' => $subsection,
+                                                                            'totalHours' => $superFinalHalfSubUnits,
+                                                                            'classroom' => $finalClassRoom,
+                                                                            'profName' => $profName,
+                                                                            'sem' => $currentSem,
+                                                                            'sy' => $schYear,
+                                                                        ]);
+                                                                    // end
+
+                                                                    // breaking loops to go back to 2nd loop the subjects loop
+                                                                    break 6;
+                                                                    // end
+
+                                                                }
+
+                                                            } // end of loop8
+                                                        // end of finding available room
+
+                                                    }
+
+                                                // end of checking if this 2nd part of schedule is hybrid and has preferred mode of face-face for this day
+
                                                 // saving schedules
-                                                Prof_sched::create([
-                                                    'profId' => $profId,
-                                                    'profSchool' => $profSchool,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'totalHours' => $superFinalHalfSubUnits,
-                                                    'classroom' => $finalClassRoom,
-                                                    'profName' => $profName,
-                                                    'sem' => $currentSem,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Prof_sched::create([
+                                                        'profId' => $profId,
+                                                        'profSchool' => $profSchool,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                        'classroom' => $finalClassRoom,
+                                                        'profName' => $profName,
+                                                        'sem' => $currentSem,
+                                                        'sy' => $schYear,
+                                                    ]);
 
-                                                Room_sched::create([
-                                                    'profId' => $profId,
-                                                    'profSchool' => $roomSchool,
-                                                    'roomSchool' => $roomSchool,
-                                                    'roomNumber' => $finalClassRoom,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'totalHours' => $superFinalHalfSubUnits,
-                                                    'profName' => $profName,
-                                                    'sem' => $currentSem,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Room_sched::create([
+                                                        'profId' => $profId,
+                                                        'profSchool' => $roomSchool,
+                                                        'roomSchool' => $roomSchool,
+                                                        'roomNumber' => $finalClassRoom,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                        'profName' => $profName,
+                                                        'sem' => $currentSem,
+                                                        'sy' => $schYear,
+                                                    ]);
 
-                                                Stud_sched::create([
-                                                    'profId' => $profId,
-                                                    'schId' => $schId,
-                                                    'schName' => $roomSchool,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'totalHours' => $superFinalHalfSubUnits,
-                                                    'classroom' => $finalClassRoom,
-                                                    'profName' => $profName,
-                                                    'sem' => $currentSem,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Stud_sched::create([
+                                                        'profId' => $profId,
+                                                        'schId' => $schId,
+                                                        'schName' => $roomSchool,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'totalHours' => $superFinalHalfSubUnits,
+                                                        'classroom' => $finalClassRoom,
+                                                        'profName' => $profName,
+                                                        'sem' => $currentSem,
+                                                        'sy' => $schYear,
+                                                    ]);
                                                 // end
 
                                                 // breaking loops to go back to 2nd loop the subjects loop
@@ -1277,19 +1461,19 @@ class GenerateController extends Controller
 
                                     // checking if automation of room is on and what is allocation way
 
-                                    if ($autoRoom == 1) {
+                                    if ( ($autoRoom == 1 && $mode == "face-face") || ($autoRoom == 1 && $mode == "Hybrid" && $prefMode == "face-face") ) {
 
                                         // checking allocation way
-                                        if ($allocationWay == 1) {
-                                            // finding available room
-                                            $rooms = Room::where('roomSchool',$profSchool)
-                                            ->where('roomDepartment',$profDept)
-                                            ->orderBy("id")->get();
-                                        }elseif($allocationWay == 0){
-                                            // finding available room
-                                            $rooms = Room::where('roomSchool',$profSchool)
-                                            ->orderBy("id")->get();
-                                        }
+                                            if ($allocationWay == 1) {
+                                                // finding available room
+                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                ->where('roomDepartment',$profDept)
+                                                ->orderBy("id")->get();
+                                            }elseif($allocationWay == 0){
+                                                // finding available room
+                                                $rooms = Room::where('roomSchool',$profSchool)
+                                                ->orderBy("id")->get();
+                                            }
                                         // end
 
                                         // loop6
@@ -1324,58 +1508,58 @@ class GenerateController extends Controller
                                             }else{
 
                                                 // saving schedules
-                                                Prof_sched::create([
-                                                    'profId' => $profId,
-                                                    'profSchool' => $profSchool,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'totalHours' => $subUnits,
-                                                    'classroom' => $finalClassRoom,
-                                                    'profName' => $profName,
-                                                    'sem' => $currentSem,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Prof_sched::create([
+                                                        'profId' => $profId,
+                                                        'profSchool' => $profSchool,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'totalHours' => $subUnits,
+                                                        'classroom' => $finalClassRoom,
+                                                        'profName' => $profName,
+                                                        'sem' => $currentSem,
+                                                        'sy' => $schYear,
+                                                    ]);
 
-                                                Room_sched::create([
-                                                    'profId' => $profId,
-                                                    'profSchool' => $roomSchool,
-                                                    'roomSchool' => $roomSchool,
-                                                    'roomNumber' => $finalClassRoom,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'totalHours' => $subUnits,
-                                                    'profName' => $profName,
-                                                    'sem' => $currentSem,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Room_sched::create([
+                                                        'profId' => $profId,
+                                                        'profSchool' => $roomSchool,
+                                                        'roomSchool' => $roomSchool,
+                                                        'roomNumber' => $finalClassRoom,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'totalHours' => $subUnits,
+                                                        'profName' => $profName,
+                                                        'sem' => $currentSem,
+                                                        'sy' => $schYear,
+                                                    ]);
 
-                                                Stud_sched::create([
-                                                    'profId' => $profId,
-                                                    'schId' => $schId,
-                                                    'schName' => $roomSchool,
-                                                    'subCode' => $subCode,
-                                                    'schedDay' => $day,
-                                                    'startTime' => $finalTimeStart,
-                                                    'endTime' => $finalTimeEnd,
-                                                    'studCourse' => $subcourse,
-                                                    'studYear' => $subyear,
-                                                    'studSection' => $subsection,
-                                                    'totalHours' => $subUnits,
-                                                    'classroom' => $finalClassRoom,
-                                                    'profName' => $profName,
-                                                    'sem' => $currentSem,
-                                                    'sy' => $schYear,
-                                                ]);
+                                                    Stud_sched::create([
+                                                        'profId' => $profId,
+                                                        'schId' => $schId,
+                                                        'schName' => $roomSchool,
+                                                        'subCode' => $subCode,
+                                                        'schedDay' => $day,
+                                                        'startTime' => $finalTimeStart,
+                                                        'endTime' => $finalTimeEnd,
+                                                        'studCourse' => $subcourse,
+                                                        'studYear' => $subyear,
+                                                        'studSection' => $subsection,
+                                                        'totalHours' => $subUnits,
+                                                        'classroom' => $finalClassRoom,
+                                                        'profName' => $profName,
+                                                        'sem' => $currentSem,
+                                                        'sy' => $schYear,
+                                                    ]);
                                                 // end
 
                                                 break 4;
@@ -1392,58 +1576,58 @@ class GenerateController extends Controller
                                         $roomSchool = $profSchool;
 
                                         // saving schedules
-                                        Prof_sched::create([
-                                            'profId' => $profId,
-                                            'profSchool' => $profSchool,
-                                            'subCode' => $subCode,
-                                            'schedDay' => $day,
-                                            'startTime' => $finalTimeStart,
-                                            'endTime' => $finalTimeEnd,
-                                            'studCourse' => $subcourse,
-                                            'studYear' => $subyear,
-                                            'studSection' => $subsection,
-                                            'totalHours' => $subUnits,
-                                            'classroom' => $finalClassRoom,
-                                            'profName' => $profName,
-                                            'sem' => $currentSem,
-                                            'sy' => $schYear,
-                                        ]);
+                                            Prof_sched::create([
+                                                'profId' => $profId,
+                                                'profSchool' => $profSchool,
+                                                'subCode' => $subCode,
+                                                'schedDay' => $day,
+                                                'startTime' => $finalTimeStart,
+                                                'endTime' => $finalTimeEnd,
+                                                'studCourse' => $subcourse,
+                                                'studYear' => $subyear,
+                                                'studSection' => $subsection,
+                                                'totalHours' => $subUnits,
+                                                'classroom' => $finalClassRoom,
+                                                'profName' => $profName,
+                                                'sem' => $currentSem,
+                                                'sy' => $schYear,
+                                            ]);
 
-                                        Room_sched::create([
-                                            'profId' => $profId,
-                                            'profSchool' => $roomSchool,
-                                            'roomSchool' => $roomSchool,
-                                            'roomNumber' => $finalClassRoom,
-                                            'subCode' => $subCode,
-                                            'schedDay' => $day,
-                                            'startTime' => $finalTimeStart,
-                                            'endTime' => $finalTimeEnd,
-                                            'studCourse' => $subcourse,
-                                            'studYear' => $subyear,
-                                            'studSection' => $subsection,
-                                            'totalHours' => $subUnits,
-                                            'profName' => $profName,
-                                            'sem' => $currentSem,
-                                            'sy' => $schYear,
-                                        ]);
+                                            Room_sched::create([
+                                                'profId' => $profId,
+                                                'profSchool' => $roomSchool,
+                                                'roomSchool' => $roomSchool,
+                                                'roomNumber' => $finalClassRoom,
+                                                'subCode' => $subCode,
+                                                'schedDay' => $day,
+                                                'startTime' => $finalTimeStart,
+                                                'endTime' => $finalTimeEnd,
+                                                'studCourse' => $subcourse,
+                                                'studYear' => $subyear,
+                                                'studSection' => $subsection,
+                                                'totalHours' => $subUnits,
+                                                'profName' => $profName,
+                                                'sem' => $currentSem,
+                                                'sy' => $schYear,
+                                            ]);
 
-                                        Stud_sched::create([
-                                            'profId' => $profId,
-                                            'schId' => $schId,
-                                            'schName' => $roomSchool,
-                                            'subCode' => $subCode,
-                                            'schedDay' => $day,
-                                            'startTime' => $finalTimeStart,
-                                            'endTime' => $finalTimeEnd,
-                                            'studCourse' => $subcourse,
-                                            'studYear' => $subyear,
-                                            'studSection' => $subsection,
-                                            'totalHours' => $subUnits,
-                                            'classroom' => $finalClassRoom,
-                                            'profName' => $profName,
-                                            'sem' => $currentSem,
-                                            'sy' => $schYear,
-                                        ]);
+                                            Stud_sched::create([
+                                                'profId' => $profId,
+                                                'schId' => $schId,
+                                                'schName' => $roomSchool,
+                                                'subCode' => $subCode,
+                                                'schedDay' => $day,
+                                                'startTime' => $finalTimeStart,
+                                                'endTime' => $finalTimeEnd,
+                                                'studCourse' => $subcourse,
+                                                'studYear' => $subyear,
+                                                'studSection' => $subsection,
+                                                'totalHours' => $subUnits,
+                                                'classroom' => $finalClassRoom,
+                                                'profName' => $profName,
+                                                'sem' => $currentSem,
+                                                'sy' => $schYear,
+                                            ]);
                                         // end
 
                                         break 3;
@@ -1723,7 +1907,7 @@ class GenerateController extends Controller
 
                                             // checking if automation of room is on and what is allocation way
 
-                                            if ($autoRoom == 1) { // this is what happens if the auto room allocation is on
+                                            if ( ($autoRoom == 1 && $mode == "face-face") || ($autoRoom == 1 && $mode == "Hybrid" && $prefMode == "face-face") ) { // this is what happens if the auto room allocation is on
 
                                                 // checking allocation way
                                                     if ($allocationWay == 1) {
@@ -1903,7 +2087,7 @@ class GenerateController extends Controller
                                                                         continue;
                                                                     }
 
-                                                                // validation of day availability and maximum units that can only be taken by prof and class
+                                                                // end of validation of day availability and maximum units that can only be taken by prof and class
 
                                                                 // preparing iterator for testing every possible time to place a schedule
                                                                     $prefTimeStartSingleNum = str_replace(array('0',':'), '',$prefTimeStart);
@@ -2048,6 +2232,75 @@ class GenerateController extends Controller
 
                                                                     // end
                                                                     // ///////////////////////////////////////////////////////////////////////////
+
+                                                                    // this is for hybrid
+                                                                    // checking if this 2nd part of schedule is hybrid and has preferred mode of online for this day
+                                                                        if( ($mode == "Hybrid") && ($prefMode == "Online") ){
+
+                                                                            $finalClassRoom = "online";
+                                                                            $roomSchool = $profSchool;
+
+                                                                            // saving schedules
+                                                                                Prof_sched::create([
+                                                                                    'profId' => $profId,
+                                                                                    'profSchool' => $profSchool,
+                                                                                    'subCode' => $subCode,
+                                                                                    'schedDay' => $day,
+                                                                                    'startTime' => $finalTimeStart,
+                                                                                    'endTime' => $finalTimeEnd,
+                                                                                    'studCourse' => $subcourse,
+                                                                                    'studYear' => $subyear,
+                                                                                    'studSection' => $subsection,
+                                                                                    'totalHours' => $secondHalfUnits,
+                                                                                    'classroom' => $finalClassRoom,
+                                                                                    'profName' => $profName,
+                                                                                    'sem' => $currentSem,
+                                                                                    'sy' => $schYear,
+                                                                                ]);
+
+                                                                                Room_sched::create([
+                                                                                    'profId' => $profId,
+                                                                                    'profSchool' => $roomSchool,
+                                                                                    'roomSchool' => $roomSchool,
+                                                                                    'roomNumber' => $finalClassRoom,
+                                                                                    'subCode' => $subCode,
+                                                                                    'schedDay' => $day,
+                                                                                    'startTime' => $finalTimeStart,
+                                                                                    'endTime' => $finalTimeEnd,
+                                                                                    'studCourse' => $subcourse,
+                                                                                    'studYear' => $subyear,
+                                                                                    'studSection' => $subsection,
+                                                                                    'totalHours' => $secondHalfUnits,
+                                                                                    'profName' => $profName,
+                                                                                    'sem' => $currentSem,
+                                                                                    'sy' => $schYear,
+                                                                                ]);
+
+                                                                                Stud_sched::create([
+                                                                                    'profId' => $profId,
+                                                                                    'schId' => $schId,
+                                                                                    'schName' => $roomSchool,
+                                                                                    'subCode' => $subCode,
+                                                                                    'schedDay' => $day,
+                                                                                    'startTime' => $finalTimeStart,
+                                                                                    'endTime' => $finalTimeEnd,
+                                                                                    'studCourse' => $subcourse,
+                                                                                    'studYear' => $subyear,
+                                                                                    'studSection' => $subsection,
+                                                                                    'totalHours' => $secondHalfUnits,
+                                                                                    'classroom' => $finalClassRoom,
+                                                                                    'profName' => $profName,
+                                                                                    'sem' => $currentSem,
+                                                                                    'sy' => $schYear,
+                                                                                ]);
+                                                                            // end
+
+                                                                            // breaking loops to go back to 2nd loop the subjects loop
+                                                                            break 8;
+                                                                            // end
+
+                                                                        }
+                                                                    // end of checking if this 2nd part of schedule is hybrid and has preferred mode of online for this day
 
                                                                     // checking allocation way
                                                                         if ($allocationWay == 1) {
@@ -2454,6 +2707,123 @@ class GenerateController extends Controller
 
                                                         // end
                                                         // ///////////////////////////////////////////////////////////////////////////
+
+                                                        // this is for hybrid condition
+                                                        // checking if this 2nd part of schedule is hybrid and has preferred mode of face-face for this day
+
+                                                            if( ($mode == "Hybrid") && ($prefMode == "face-face") ){
+
+                                                                // checking allocation way
+                                                                    if ($allocationWay == 1) {
+                                                                        // finding available room
+                                                                        $rooms = Room::where('roomSchool',$profSchool)
+                                                                        ->where('roomDepartment',$profDept)
+                                                                        ->orderBy("id")->get();
+                                                                    }elseif($allocationWay == 0){
+                                                                        // finding available room
+                                                                        $rooms = Room::where('roomSchool',$profSchool)
+                                                                        ->orderBy("id")->get();
+                                                                    }
+                                                                // end
+
+                                                                // finding available room
+                                                                    // loop10
+                                                                    foreach($rooms as $room){
+
+                                                                        $finalClassRoom = $room->roomNumber;
+                                                                        $roomSchool = $room->roomSchool;
+
+                                                                        $classroomTaken = Room_sched::where('profSchool', $profSchool)
+                                                                                    ->where('roomSchool', $roomSchool)
+                                                                                    ->where('roomNumber', $finalClassRoom)
+                                                                                    ->where('schedDay', $day)
+                                                                                    ->where(function ($query) use ($finalTimeStart,$finalTimeEnd) {
+                                                                                        $query->where(function ($query1) use ($finalTimeStart) {
+                                                                                                    $query1->whereTime('startTime', '<=', $finalTimeStart)
+                                                                                                        ->whereTime('endTime', '>', $finalTimeStart);
+                                                                                                })
+                                                                                                ->orWhere(function ($query2) use ($finalTimeEnd) {
+                                                                                                    $query2->whereTime('startTime', '<', $finalTimeEnd)
+                                                                                                        ->whereTime('endTime', '>=', $finalTimeEnd);
+                                                                                                })
+                                                                                                ->orWhere(function ($query3) use ($finalTimeStart,$finalTimeEnd) {
+                                                                                                    $query3->whereTime('startTime', '>', $finalTimeStart)
+                                                                                                        ->whereTime('endTime', '<', $finalTimeEnd);
+                                                                                                });
+                                                                                    })
+                                                                                    ->exists();
+
+                                                                        if($classroomTaken){
+                                                                            continue;
+                                                                        }else{
+
+                                                                            // saving schedules
+                                                                                Prof_sched::create([
+                                                                                    'profId' => $profId,
+                                                                                    'profSchool' => $profSchool,
+                                                                                    'subCode' => $subCode,
+                                                                                    'schedDay' => $day,
+                                                                                    'startTime' => $finalTimeStart,
+                                                                                    'endTime' => $finalTimeEnd,
+                                                                                    'studCourse' => $subcourse,
+                                                                                    'studYear' => $subyear,
+                                                                                    'studSection' => $subsection,
+                                                                                    'totalHours' => $secondHalfUnits,
+                                                                                    'classroom' => $finalClassRoom,
+                                                                                    'profName' => $profName,
+                                                                                    'sem' => $currentSem,
+                                                                                    'sy' => $schYear,
+                                                                                ]);
+
+                                                                                Room_sched::create([
+                                                                                    'profId' => $profId,
+                                                                                    'profSchool' => $roomSchool,
+                                                                                    'roomSchool' => $roomSchool,
+                                                                                    'roomNumber' => $finalClassRoom,
+                                                                                    'subCode' => $subCode,
+                                                                                    'schedDay' => $day,
+                                                                                    'startTime' => $finalTimeStart,
+                                                                                    'endTime' => $finalTimeEnd,
+                                                                                    'studCourse' => $subcourse,
+                                                                                    'studYear' => $subyear,
+                                                                                    'studSection' => $subsection,
+                                                                                    'totalHours' => $secondHalfUnits,
+                                                                                    'profName' => $profName,
+                                                                                    'sem' => $currentSem,
+                                                                                    'sy' => $schYear,
+                                                                                ]);
+
+                                                                                Stud_sched::create([
+                                                                                    'profId' => $profId,
+                                                                                    'schId' => $schId,
+                                                                                    'schName' => $roomSchool,
+                                                                                    'subCode' => $subCode,
+                                                                                    'schedDay' => $day,
+                                                                                    'startTime' => $finalTimeStart,
+                                                                                    'endTime' => $finalTimeEnd,
+                                                                                    'studCourse' => $subcourse,
+                                                                                    'studYear' => $subyear,
+                                                                                    'studSection' => $subsection,
+                                                                                    'totalHours' => $secondHalfUnits,
+                                                                                    'classroom' => $finalClassRoom,
+                                                                                    'profName' => $profName,
+                                                                                    'sem' => $currentSem,
+                                                                                    'sy' => $schYear,
+                                                                                ]);
+                                                                            // end
+
+                                                                            // breaking loops to go back to 2nd loop the subjects loop
+                                                                            break 8;
+                                                                            // end
+
+                                                                        }
+
+                                                                    } // end of loop8
+                                                                // end of finding available room
+
+                                                            }
+
+                                                        // end of checking if this 2nd part of schedule is hybrid and has preferred mode of face-face for this day
 
                                                         // saving schedules
                                                             Prof_sched::create([
