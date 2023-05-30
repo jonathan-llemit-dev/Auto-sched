@@ -26,6 +26,15 @@ class ProfConfigController extends Controller
 
         $profId = Auth::user()->id;
 
+        $mode = $request -> mode;
+        $prefModeSun = $request -> prefModeSun;
+        $prefModeMon = $request -> prefModeMon;
+        $prefModeTue = $request -> prefModeTue;
+        $prefModeWed = $request -> prefModeWed;
+        $prefModeThu = $request -> prefModeThu;
+        $prefModeFri = $request -> prefModeFri;
+        $prefModeSat = $request -> prefModeSat;
+
         $id = DB::table('prof_configs')->where('profId', $profId)->value('id');
 
         $profSchool = DB::table('prof_infos')->where('id', $profId)->value('profSchool');
@@ -387,8 +396,24 @@ class ProfConfigController extends Controller
                     ->backdrop()
                     ->autoDismiss(5);
             
+                }elseif( ($mode == "Hybrid") && ($prefModeSun == "Hybrid" ||
+                                                    $prefModeMon == "Hybrid" || 
+                                                    $prefModeTue == "Hybrid" || 
+                                                    $prefModeWed == "Hybrid" || 
+                                                    $prefModeThu == "Hybrid" || 
+                                                    $prefModeFri == "Hybrid" || 
+                                                    $prefModeSat == "Hybrid") ){ //validating pref mode
+
+                    Toast::title('Please Select a Teaching Mode.')
+                    ->warning()
+                    ->rightTop()
+                    ->backdrop()
+                    ->autoDismiss(5);
+
                 }else{
         
+                    $mode = $request -> mode;
+
                     $schoolSetuptime = Prof_config::find($id);
                     $schoolSetuptime -> employment = $request -> employment;
                     $schoolSetuptime -> mode = $request -> mode;
@@ -407,6 +432,19 @@ class ProfConfigController extends Controller
                     $schoolSetuptime -> prefTimeEndFri = $request -> prefTimeEndFri;
                     $schoolSetuptime -> prefTimeStartSat = $request -> prefTimeStartSat;
                     $schoolSetuptime -> prefTimeEndSat = $request -> prefTimeEndSat;
+
+                    if($mode == "Hybrid"){
+                        
+                        $schoolSetuptime -> prefModeSun = $request -> prefModeSun;
+                        $schoolSetuptime -> prefModeMon = $request -> prefModeMon;
+                        $schoolSetuptime -> prefModeTue = $request -> prefModeTue;
+                        $schoolSetuptime -> prefModeWed = $request -> prefModeWed;
+                        $schoolSetuptime -> prefModeThu = $request -> prefModeThu;
+                        $schoolSetuptime -> prefModeFri = $request -> prefModeFri;
+                        $schoolSetuptime -> prefModeSat = $request -> prefModeSat;
+
+                    }
+
                     $schoolSetuptime -> save();
             
                     Toast::title('Professor Hours Updated Successfully. ')

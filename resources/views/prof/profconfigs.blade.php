@@ -109,13 +109,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeSun" label="Preferred Teaching Mode on Sunday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeSun" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeSun" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
@@ -141,13 +141,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeMon" label="Preferred Teaching Mode on Monday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeMon" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeMon" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
@@ -171,13 +171,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeTue" label="Preferred Teaching Mode on Tuesday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeTue" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeTue" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
@@ -201,13 +201,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeWed" label="Preferred Teaching Mode on Wednesday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeWed" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeWed" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
@@ -231,13 +231,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeThu" label="Preferred Teaching Mode on Thursday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeThu" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeThu" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
@@ -261,13 +261,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeFri" label="Preferred Teaching Mode on Friday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeFri" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeFri" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
@@ -291,13 +291,13 @@
                                     {{-- preferred teaching mode if hybrid --}}
                                     @if ($profconfig->mode == "Hybrid")
 
-                                        <div class="flex items-end gap-3 flex-wrap sm:flex-nowrap">
+                                        <x-splade-group name="prefModeSat" label="Preferred Teaching Mode on Saturday" inline>
 
                                             <x-splade-radio class="blue-chck" name="prefModeSat" value="face-face" label="Face to Face" />
 
                                             <x-splade-radio class="blue-chck" name="prefModeSat" value="Online" label="Online" />
-                                            
-                                        </div>
+
+                                        </x-splade-group>
                                         
                                     @endif
                                     {{-- end --}}
