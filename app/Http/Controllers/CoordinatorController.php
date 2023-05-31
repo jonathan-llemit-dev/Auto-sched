@@ -109,7 +109,10 @@ class CoordinatorController extends Controller
                 
             ]);
 
-            event(new ProfRegistered($prof, $password));
+            $position = "Coordinator";
+            $btnLink = "http://localhost:8000/coor/login";
+
+            event(new ProfRegistered($prof, $password, $position, $btnLink));
     
             Toast::title('Coordinator Added Successfully.')
             ->success()

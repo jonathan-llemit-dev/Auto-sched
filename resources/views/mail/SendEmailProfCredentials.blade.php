@@ -7329,7 +7329,7 @@
             
                     <div class="pt-4 flex items-center flex-wrap w-full">
                         <div class="bg-b6 w-full p-3 flex items-center justify-center flex-wrap flex-col">
-                            <p class="text-white text-sm sm:text-lg font-normal uppercase text-center">Welcome</p>
+                            <p class="text-white text-sm sm:text-lg font-normal uppercase text-center">{{ $position }}</p>
                             <p class="text-white text-xs font-normal uppercase text-center">
                                 {{-- {{ $coorFName }} {{ $coorLName }} --}}
                             </p>
@@ -7360,8 +7360,8 @@
                                 <p>
                                     Now, Log In your Account Here:
                                 </p>
-                                <a href="{{ route('coor.login') }}" target="_blank" rel="noreferrer noopener" class="text-b6 cursor-pointer sm:text-xs text-xs0">
-                                    {{ route('coor.login') }}
+                                <a href="{{ $btnLink }}" target="_blank" rel="noreferrer noopener" class="text-b6 cursor-pointer sm:text-xs text-xs0">
+                                    {{ $btnLink }}
                                 </a>
                             </div>
 

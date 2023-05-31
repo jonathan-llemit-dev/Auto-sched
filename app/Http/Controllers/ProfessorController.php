@@ -132,7 +132,10 @@ class ProfessorController extends Controller
                 
             ]);
     
-            event(new ProfRegistered($prof, $password));
+            $position = "Professor";
+            $btnLink = "http://localhost:8000/prof/login";
+
+            event(new ProfRegistered($prof, $password, $position, $btnLink));
     
             $profFName = $request -> profFName;
             $profLName = $request -> profLName;

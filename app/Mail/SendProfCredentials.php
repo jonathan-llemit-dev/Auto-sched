@@ -16,7 +16,7 @@ class SendProfCredentials extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private $profFName, private $profLName, private $email, private $password)
+    public function __construct(private $profFName, private $profLName, private $email, private $password, private $position, private $btnLink)
     {
         //
     }
@@ -27,7 +27,7 @@ class SendProfCredentials extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Professor Credentials',
+            subject: 'AUTO-SCHED Account Credentials',
         );
     }
 
@@ -41,7 +41,9 @@ class SendProfCredentials extends Mailable
             with: [ 'profFName' => $this->profFName,
                     'profLName' => $this->profLName,
                     'email' => $this->email,
-                    'password' => $this->password
+                    'password' => $this->password,
+                    'position' => $this->position,
+                    'btnLink' => $this->btnLink
                     ],
         );
     }

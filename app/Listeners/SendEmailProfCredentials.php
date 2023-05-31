@@ -26,6 +26,8 @@ class SendEmailProfCredentials
         //
         $prof = $event->prof;
         $password = $event->password;
+        $position = $event->position;
+        $btnLink = $event->btnLink;
         // $password = $password->password;
         $profFName = $prof->profFName;
         $profLName = $prof->profLName;
@@ -37,7 +39,7 @@ class SendEmailProfCredentials
         //         $message->to($prof->email);
         // });
 
-        Mail::to($prof->email)->send(new SendProfCredentials($profFName, $profLName, $email, $password));
+        Mail::to($prof->email)->send(new SendProfCredentials($profFName, $profLName, $email, $password, $position, $btnLink));
 
     }
 }

@@ -17,15 +17,19 @@ class ProfRegistered
 
     public $prof;
     public $password;
+    public $position; 
+    public $btnLink;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($prof, $password)
+    public function __construct($prof, $password, $position, $btnLink)
     {
         //
         $this->prof = $prof;
         $this->password = $password;
+        $this->position = $position;
+        $this->btnLink = $btnLink;
     }
 
     /**
